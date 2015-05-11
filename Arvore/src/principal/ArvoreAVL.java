@@ -1,24 +1,18 @@
 package principal;
 
 import java.awt.dnd.InvalidDnDOperationException;
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
 import java.util.ArrayList;
-import java.util.LinkedList;
 
 import javax.naming.directory.InvalidAttributesException;
 
-
 public class ArvoreAVL {
-	
+
 	public static ArrayList<Integer> numeros = new ArrayList<Integer>();
 
 	public static No inserir(No aux, int num) throws InvalidAttributesException {
 		No novo;
-		
-		if(consultar(aux, num, false))
+
+		if (consultar(aux, num, false))
 			throw new InvalidAttributesException();
 
 		if (aux == null) {
@@ -75,7 +69,7 @@ public class ArvoreAVL {
 				aux = rotacao_direita(aux);
 			}
 		}
-		
+
 		return aux;
 	}
 
@@ -126,114 +120,137 @@ public class ArvoreAVL {
 		}
 		return aux1;
 	}
-	
+
 	/*
 	 * Pega todos os valores da arvore e colocar no arraylist numeros
 	 */
 	public static void pegarValores(No no) {
-	     if(no != null) {
-	    	 pegarValores(no.esq);
-	    	 numeros.add(no.num);
-	    	 pegarValores(no.dir);
-	     }
-	 }
-	
-	public static No excluir(No aux, int num) throws InvalidDnDOperationException{
-		
-		if(aux == null)
-			throw new InvalidDnDOperationException();
-		
-        No p, p2;
-        if (aux.num == num) {
-            if (aux.esq == aux.dir) {
-                return null;
-            } else if (aux.esq == null) {
-                return aux.dir;
-            } else if (aux.dir == null) {
-                return aux.esq;
-            } else {
-                p2 = aux.dir;
-                p = aux.dir;
-                while (p.esq != null) {
-                    p = p.esq;
-                }
-                p.esq = aux.esq;
-                return p2;
-            }
-        } else if (aux.num < num) {
-            aux.dir = excluir(aux.dir, num);
-        } else {
-            aux.esq = excluir(aux.esq, num);
-        }
-        return aux;
-    }
- 
-    public static No atualizar(No aux) {
-        if (aux != null) {
-            aux.esq = atualizar(aux.esq);
-            if (aux.esq == null) {
-                aux.alte = 0;
-            } else if (aux.esq.alte > aux.esq.altd) {
-                aux.alte = aux.esq.alte + 1;
-            } else {
-                aux.alte = aux.esq.altd + 1;
-            }
-            aux.dir = atualizar(aux.dir);
-            if (aux.dir == null) {
-                aux.alte = 0;
-            } else if (aux.dir.alte > aux.dir.altd) {
-                aux.altd = aux.dir.alte + 1;
-            } else {
-                aux.altd = aux.dir.altd + 1;
-            }
-            aux = balanceamento(aux);
-        }
-        return aux;
-    }
- 
-    public static boolean consultar(No aux, int num, boolean loc) {
-        if (aux != null && loc == false) {
-            if (aux.num == num) {
-                loc = true;
-            } else if (num < aux.num) {
-                loc = consultar(aux.esq, num, loc);
-            } else {
-                loc = consultar(aux.dir, num, loc);
-            }
-        }
-        return loc;
-    }
-	
-	public static void savetofile(No no, String fnome) throws IOException {
-        if (no==null) return;
-        LinkedList<No> fila = new LinkedList<No>();
-        fila.add(no);
-        
-        File file = new File(fnome);
-        if (!file.exists()) {
-			file.createNewFile();
+		if (no != null) {
+			pegarValores(no.esq);
+			numeros.add(no.num);
+			pegarValores(no.dir);
 		}
-        FileWriter fw = new FileWriter(file.getAbsoluteFile());
-		BufferedWriter bw = new BufferedWriter(fw);
-        
-        
-        while (!fila.isEmpty()) {
-        	No q = fila.element();
-        	bw.write(q.num + " ");
-            if (q.esq != null) {
-            	fila.add(q.esq);
-            	bw.write(" [" + q.esq.num + "] ");
-            } else
-                bw.write(" [] ");
-            if (q.dir != null) {
-            	fila.add(q.dir);
-            	bw.write(" [" + q.dir.num + "] ");
-            } else
-            	bw.write(" [] ");
-            bw.write("\n");
-            fila.pop();
-        }
-        bw.close();
-    }
+	}
 
+	public static No excluir(No aux, int num)
+			throws InvalidDnDOperationException {
+
+		if (aux == null)
+			throw new InvalidDnDOperationException();
+
+		No p, p2;
+		if (aux.num == num) {
+			if (aux.esq == aux.dir) {
+				return null;
+			} else if (aux.esq == null) {
+				return aux.dir;
+			} else if (aux.dir == null) {
+				return aux.esq;
+			} else {
+				p2 = aux.dir;
+				p = aux.dir;
+				while (p.esq != null) {
+					p = p.esq;
+				}
+				p.esq = aux.esq;
+				return p2;
+			}
+		} else if (aux.num < num) {
+			aux.dir = excluir(aux.dir, num);
+		} else {
+			aux.esq = excluir(aux.esq, num);
+		}
+		return aux;
+	}
+
+	public static No atualizar(No aux) {
+		if (aux != null) {
+			aux.esq = atualizar(aux.esq);
+			if (aux.esq == null) {
+				aux.alte = 0;
+			} else if (aux.esq.alte > aux.esq.altd) {
+				aux.alte = aux.esq.alte + 1;
+			} else {
+				aux.alte = aux.esq.altd + 1;
+			}
+			aux.dir = atualizar(aux.dir);
+			if (aux.dir == null) {
+				aux.alte = 0;
+			} else if (aux.dir.alte > aux.dir.altd) {
+				aux.altd = aux.dir.alte + 1;
+			} else {
+				aux.altd = aux.dir.altd + 1;
+			}
+			aux = balanceamento(aux);
+		}
+		return aux;
+	}
+
+	public static boolean consultar(No aux, int num, boolean loc) {
+		if (aux != null && loc == false) {
+			if (aux.num == num) {
+				loc = true;
+			} else if (num < aux.num) {
+				loc = consultar(aux.esq, num, loc);
+			} else {
+				loc = consultar(aux.dir, num, loc);
+			}
+		}
+		return loc;
+	}
+
+	public static int numeroNosArvore(No no) {
+		if (no != null) {
+			numeroNosArvore(no.esq);
+			numeros.add(no.num);
+			numeroNosArvore(no.dir);
+		}
+		return numeros.size();
+	}
+
+	public static int numeroNosSubArvore(No no, int num) {
+
+		return 0;
+	}
+
+	public int Contagem(No n) {
+		if (n == null)
+			return 0;
+		else
+			return 1 + Contagem(n.esq) + Contagem(n.dir);
+	}
+
+	public int SomaElementos(No raiz) {
+		if (raiz != null) {
+			int soma = this.SomaElementos(raiz.esq)
+					+ this.SomaElementos(raiz.dir) + raiz.num;
+			return soma;
+		} else
+			return 0;
+	}
+
+	public static int MenorElemento(No no) {
+		No menor;
+		menor = no;
+		if (no != null) {
+			while (menor.esq != null) {
+				menor = menor.esq;
+				return menor.num;
+			}
+		}
+		return -1;
+	}
+
+	public static int MaiorElemento(No raiz) {
+		No maior;
+		maior= raiz;
+		if (raiz != null) {
+			if (maior.num < raiz.num)
+				maior.num = raiz.num;
+			MaiorElemento(raiz.esq);
+			MaiorElemento(raiz.dir);
+			return maior.num;
+		} else
+			return 0;
+	}
 }

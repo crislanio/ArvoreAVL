@@ -10,6 +10,7 @@ public class ExibirArvore {
 	public static void exibirpreOrdem(No no) {
 	     if(no != null) {
 	    	 sequencia.add(no.num);
+	    	 System.out.print(no.num + ", ");
 	    	 exibirpreOrdem(no.esq);
 	    	 exibirpreOrdem(no.dir);
 	     }
@@ -17,8 +18,10 @@ public class ExibirArvore {
 	
 	public static void exibirOrdemSimetrica(No no) {
 	     if(no != null) {
+	    	
 	    	 exibirOrdemSimetrica(no.esq);
 	    	 sequencia.add(no.num);
+	    	 System.out.print(no.num + ", ");
 	    	 exibirOrdemSimetrica(no.dir);
 	     }
 	 }
@@ -28,6 +31,7 @@ public class ExibirArvore {
 	    	 exibirpposOrdem(no.esq);
 	    	 exibirpposOrdem(no.dir);
 	    	 sequencia.add(no.num);
+	    	 System.out.print(no.num + ", ");
 	     }
 	 }
 	
@@ -36,15 +40,16 @@ public class ExibirArvore {
         if (no==null) return;
         LinkedList<No> fila = new LinkedList<No>();
         fila.add(no);
-        
         while (!fila.isEmpty()) {
         	No q = fila.element();
             sequencia.add(q.num);
-        	if (q.esq != null) {
+          if (q.esq != null) {
             	fila.add(q.esq);
             } 
             if (q.dir != null) {
             	fila.add(q.dir);
+/*                System.out.print(fila + ", ");
+*/
             }
             fila.pop();
         }
