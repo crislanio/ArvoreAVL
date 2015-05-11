@@ -6,6 +6,22 @@ import java.util.ArrayList;
 import javax.naming.directory.InvalidAttributesException;
 
 public class ArvoreAVL {
+	
+	static No raiz;
+
+	public static No getRaiz() {
+		return raiz;
+	}
+
+
+	public ArvoreAVL() {
+		this.setRaiz(null);
+	}
+
+
+	public static void setRaiz(No raiz) {
+		raiz = raiz;
+	}
 
 	public static ArrayList<Integer> numeros = new ArrayList<Integer>();
 
@@ -126,9 +142,9 @@ public class ArvoreAVL {
 	 */
 	public static void pegarValores(No no) {
 		if (no != null) {
-			pegarValores(no.esq);
+			pegarValores(no.getEsq());
 			numeros.add(no.num);
-			pegarValores(no.dir);
+			pegarValores(no.getDir());
 		}
 	}
 
@@ -199,58 +215,32 @@ public class ArvoreAVL {
 		return loc;
 	}
 
-	public static int numeroNosArvore(No no) {
-		if (no != null) {
-			numeroNosArvore(no.esq);
-			numeros.add(no.num);
-			numeroNosArvore(no.dir);
-		}
-		return numeros.size();
-	}
-
-	public static int numeroNosSubArvore(No no, int num) {
-
-		return 0;
-	}
-
-	public int Contagem(No n) {
-		if (n == null)
-			return 0;
-		else
-			return 1 + Contagem(n.esq) + Contagem(n.dir);
-	}
-
-	public int SomaElementos(No raiz) {
-		if (raiz != null) {
-			int soma = this.SomaElementos(raiz.esq)
-					+ this.SomaElementos(raiz.dir) + raiz.num;
-			return soma;
-		} else
-			return 0;
-	}
-
-	public static int MenorElemento(No no) {
-		No menor;
-		menor = no;
-		if (no != null) {
-			while (menor.esq != null) {
-				menor = menor.esq;
-				return menor.num;
+	
+	// por que está dando sempre 0?
+	public static int nivel(No a, int p) {
+		No no;
+		no = getRaiz(); // recebe a raiz da Arvore
+		int nivel = 0;
+		while (no != null) {
+			if (no.num == p) {
+				return nivel;
+			} else if (p < no.num) {
+				no = no.getEsq();
+				nivel += 1;
+			} else {
+				no = no.getDir();
+				nivel += 1;
 			}
 		}
-		return -1;
+		return nivel;
 	}
-
-	public static int MaiorElemento(No raiz) {
-		No maior;
-		maior= raiz;
-		if (raiz != null) {
-			if (maior.num < raiz.num)
-				maior.num = raiz.num;
-			MaiorElemento(raiz.esq);
-			MaiorElemento(raiz.dir);
-			return maior.num;
-		} else
-			return 0;
-	}
+	// imcompleta
+	/*
+	 * public static No sucessor(No x) { if (x.dir != null) { No y = x.dir;
+	 * while (y.esq != null) { y = y.esq; return y; } } while (x.pai != null &&
+	 * x.pai.dir == x) x = x.pai; System.out.println("No seguinte " + x.pai);
+	 * return x.pai;
+	 * 
+	 * }
+	 */
 }

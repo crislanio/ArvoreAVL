@@ -10,10 +10,11 @@ public class Controlador {
 			IOException, InvalidAttributesException {
 		No a = null;
 		int cont, maior, menor;
+		FuncoesExtras funcExtra = new FuncoesExtras();
 
 		a = ArvoreAVL.inserir(a, 1);
-		a = ArvoreAVL.inserir(a, 2);
-		a = ArvoreAVL.inserir(a, 3);
+		// a = ArvoreAVL.inserir(a, 2);
+		// a = ArvoreAVL.inserir(a, 3);
 		a = ArvoreAVL.inserir(a, 4);
 		a = ArvoreAVL.inserir(a, 5);
 		a = ArvoreAVL.inserir(a, 6);
@@ -22,7 +23,7 @@ public class Controlador {
 		a = ArvoreAVL.inserir(a, 9);
 		a = ArvoreAVL.inserir(a, 10);
 		a = ArvoreAVL.inserir(a, -3);
-
+		
 		System.out.print("EM : ");
 		ExibirArvore.exibirOrdemSimetrica(a);
 		System.out.println();
@@ -37,20 +38,29 @@ public class Controlador {
 		System.out.println();
 		// -----------------------------------------------------------------------
 		System.out.println("-----------------------------------");
-		cont = ArvoreAVL.numeroNosArvore(a);
+		cont = FuncoesExtras.numeroNosArvore(a);
 		System.out.println("Número de nós na Árvore AVL: ");
 		System.out.println(cont);
 		System.out.println();
 		// -----------------------------------------------------------------------
 		System.out.println("+++++++++++++++++++++++++++++++++++");
-		maior = ArvoreAVL.MaiorElemento(a);
-		menor = ArvoreAVL.MenorElemento(a);
+
+		maior = funcExtra.MaiorElemento(a);
+		menor = funcExtra.MenorElemento(a);
 
 		System.out.println("Maior valor da Árvore AVL: ");
 		System.out.println(maior);
 		System.out.println();
 		System.out.println("Menor valor da Árvore AVL: ");
 		System.out.println(menor);
+		System.out.println();
+		System.out.println("No seguinte da Árvore AVL: ");
+		// ArvoreAVL.seguinte(a);
+
+		System.out.println();
+		// nivel de um nó da arvore
+		System.out.println("Nível de um Nó da Árvore AVL: ");
+		System.out.println(ArvoreAVL.nivel(a, 1));
 		System.out.println();
 	}
 
