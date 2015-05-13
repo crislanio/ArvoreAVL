@@ -1,14 +1,10 @@
 package ufc.eda.arvoreavl;
 
-/**
- * 
- * @author Rafael Caixeta
- */
 public class No {
     private int valor;
     private No filhoDireita;
     private No filhoEsquerda;
-
+ 
     /**
      * @return the valor
      */
