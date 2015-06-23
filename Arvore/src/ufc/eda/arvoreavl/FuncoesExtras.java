@@ -13,12 +13,7 @@ public class FuncoesExtras extends Arvore {
 		}
 		return numeros.size();
 	}
-
-	public int numeroNosSubArvore(No no, int num) {
-
-		return 0;
-	}
-
+// n nos arv
 	public int Contagem(No n) {
 		if (n == null)
 			return 0;

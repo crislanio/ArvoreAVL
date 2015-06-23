@@ -5,7 +5,7 @@ import java.util.LinkedList;
 
 public class Arvore {
 
-	private No raiz;
+	protected No raiz;
 	public No raiz1 = raiz;
 
 	public Arvore() {
@@ -25,6 +25,60 @@ public class Arvore {
 	 */
 	public void setRaiz(No raiz) {
 		this.raiz = raiz;
+	}
+
+	/**
+	 * Recebe um nó e retorna a altura
+	 */
+	public int altura(No atual) {
+		if (atual == null) {
+			return -1;
+		}
+ 
+		if (atual.getfilhoEsquerda() == null && atual.getfilhoDireita() == null) {
+			return 0;
+		
+		} else if (atual.getfilhoEsquerda() == null) {
+			return 1 + altura(atual.getfilhoDireita());
+		
+		} else if (atual.getfilhoDireita() == null) {
+			return 1 + altura(atual.getfilhoEsquerda());
+		
+		} else {
+			return 1 + Math.max(altura(atual.getfilhoEsquerda()), altura(atual.getfilhoDireita()));
+		}
+	}
+
+	public int alturaNodeValue(No atual, int i) {
+
+		if (atual == null) {
+			return -1;
+		}
+
+		if (atual.getfilhoEsquerda() == null && atual.getfilhoDireita() == null) {
+			return 0;
+
+		} else if (atual.getfilhoEsquerda() == null) {
+			if (atual.getValor() == i)
+				return 1 + alturaNodeValue(atual.getfilhoDireita(), i);
+			else {
+
+			}
+		} else if (atual.getfilhoDireita() == null) {
+			if (atual.getValor() == i)
+				return 1 + alturaNodeValue(atual.getfilhoEsquerda(), i);
+
+		}
+		return 1 + max(alturaNodeValue(atual.getfilhoEsquerda(), i),
+				alturaNodeValue(atual.getfilhoDireita(), i));
+	}
+
+	private int max(int a, int b) {
+		if (a >= b) {
+			return a;
+		} else {
+			return b;
+		}
 	}
 
 	/**
@@ -235,6 +289,7 @@ public class Arvore {
 		}
 		return loc;
 	}
+
 	/**
 	 * Metodo densevolvido para dizer se um determinado valor em um No existe
 	 * 
@@ -255,7 +310,7 @@ public class Arvore {
 		}
 		return num;
 	}
-	
+
 	/**
 	 * Imprime a arvore de forma PreFixada de acordo com o caminho percorrido
 	 * Metodo em Recursao
@@ -321,7 +376,7 @@ public class Arvore {
 		}
 	}
 
-	// por que está dando sempre 0?
+	// OBS ?
 	/**
 	 * Retorna o arvore EmOrdem de acordo com o caminho percorrido Metodo em
 	 * Recursao
@@ -329,7 +384,7 @@ public class Arvore {
 	 * @param no
 	 * @param p
 	 */
-	public int nivel(Arvore a, No p) {
+	public int nivel(No p) {
 		No no;
 		no = this.getRaiz(); // recebe a raiz da Arvore
 		int nivel = 0;
@@ -346,4 +401,43 @@ public class Arvore {
 		}
 		return nivel;
 	}
+
+	public int nivelDoisNos(No no, int p) {
+		;
+		no = this.getRaiz(); // recebe a raiz da Arvore
+		int nivel = 0;
+		while (no != null) {
+			if (no.getValor() == p) {
+				return nivel;
+			} else if (p < no.getValor()) {
+				no = no.getfilhoEsquerda();
+				nivel += 1;
+			} else {
+				no = no.getfilhoDireita();
+				nivel += 1;
+			}
+		}
+		return nivel;
+	}
+
+	/**
+	 * Metodo que calcula o nivel de um No em uma arvore
+	 * 
+	 * @param k
+	 */
+
+	public int calcularNivelNo(int k) {
+		No aux = raiz;
+		int nivel = 0;
+		while (aux != null && aux.getValor() != k) {
+			if (k < aux.getValor()) {
+				aux = aux.getfilhoEsquerda();
+			} else {
+				aux = aux.getfilhoDireita();
+			}
+			nivel++;
+		}
+		return nivel;
+	}
+
 }
