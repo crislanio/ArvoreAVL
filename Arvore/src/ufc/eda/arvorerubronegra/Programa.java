@@ -1,58 +1,58 @@
-package ufc.eda.arvoreavl;
+package ufc.eda.arvorerubronegra;
 
 import java.io.IOException;
 
 import javax.naming.directory.InvalidAttributesException;
 
-public class Controlador {
+public class Programa {
 
 	public static void main(String[] args) throws InterruptedException,
 			IOException, InvalidAttributesException {
 		Arvore a = new Arvore();
 		FuncoesExtras fe = new FuncoesExtras();
-		No no = new No();
+		No no = new No(0);
 
-		a.insere(1);
-		a.insere(2);
-		a.insere(3);
-		a.insere(4);
-		a.insere(-5);
-		a.insere(-12);
-		a.insere(13);
+		a.insere(a.Raiz,1);
+		a.insere(a.Raiz,2);
+		a.insere(a.Raiz,3);
+		a.insere(a.Raiz,4);
+		a.insere(a.Raiz,-5);
+		a.insere(a.Raiz,-12);
+		a.insere(a.Raiz,13);
 		
-		no = a.getRaiz(); // nó pega a raiz da árvore
+		no = a.Raiz; // nó pega a raiz da árvore
 		// letra a, ( c ) d, e, g, h, i, j, k  ja  foram
 		
 		// letra b imcompleta, , f nao 
 		
 		System.out.print("EM : ");
-		a.emOrdem(a.getRaiz());
+		a.emOrdem(a.Raiz);
 		System.out.println();
 		System.out.print("PRE : ");
-		a.preOrdem(a.getRaiz());
+		a.preOrdem(a.Raiz);
 		System.out.println();
 		System.out.print("POS : ");
-		a.posOrdem(a.getRaiz());
+		a.posOrdem(a.Raiz);
 		System.out.println();
 		System.out.print("NIVEL : ");
-		a.porNivel(a.getRaiz());
+		a.porNivel(a.Raiz);
 
 		System.out.println();
-		System.out.println("Maior elemento: " + fe.MaiorElemento(a.getRaiz()));
-		System.out.println("Menor elemento: " + fe.MenorElemento(a.getRaiz()));
+		System.out.println("Maior elemento: " + fe.MaiorElemento(a.Raiz));
+		System.out.println("Menor elemento: " + fe.MenorElemento(a.Raiz));
 
 		System.out.println("Maior elemento sub-árvore Esq: "
-				+ fe.MaiorElemento(a.getRaiz().getfilhoEsquerda())) ;
+				+ fe.MaiorElemento(a.Raiz.esquerda)) ;
 		System.out.println("Maior elemento sub-árvore Dir: "
-				+ fe.MaiorElemento(a.getRaiz().getfilhoDireita())) ;
+				+ fe.MaiorElemento(a.Raiz.direita)) ;
 		// corrigido
 		System.out.println("Nivel: "
-				+ a.nivel(a.getRaiz().getfilhoDireita().getfilhoDireita()  )) ;	
+				+ a.nivel(a.Raiz.direita.direita  )) ;	
 		System.out.println("\n-----------------------");
 		System.out.println("\n-----------------------");
 		
 		System.out
-				.println("Pesquisa: " + fe.consultar2(a.getRaiz(), 4, false));
+				.println("Pesquisa: " + fe.consultar(a.Raiz, 4, false));
 		System.out.println("-----------------------");
 		System.out.println("N° Nós Arv> "+fe.numeroNosArvore(no));
 		System.out.println("\n-----------------------");

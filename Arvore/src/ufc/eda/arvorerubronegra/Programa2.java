@@ -2,7 +2,7 @@ package ufc.eda.arvorerubronegra;
 
 import java.util.Scanner;
 
-public class Main {
+public class Programa2 {
 
 	public static void main(String[] agrs) {
 
@@ -35,7 +35,7 @@ public class Main {
 
 					nodo = scanner.nextInt();
 
-					tree.add(tree.Raiz, nodo);
+					tree.insere(tree.Raiz, nodo);
 
 					System.out.println();
 
